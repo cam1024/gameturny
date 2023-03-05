@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Navbar, Container,Nav } from 'react-bootstrap';
+import { Navbar, Container, Nav } from 'react-bootstrap';
 
 import Auth from '../utils/auth';
 
@@ -10,13 +10,13 @@ const Header = () => {
 
   return (
     <>
-      <Navbar bg='blue'>
+      <Navbar bg='dark' variant='dark'>
         <Container>
           <Navbar.Brand as={Link} to='/'>
             Turny-Mint
           </Navbar.Brand>
-          <Navbar.Collapse>
-            <Nav className='ml-auto'>
+          <Navbar.Collapse id='navbar'>
+            <Nav className='me-auto'>
             {Auth.loggedIn() ? (
                 <>
                   <Nav.Link onClick={Auth.logout}>Logout</Nav.Link>
