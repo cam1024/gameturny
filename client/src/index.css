@@ -1,0 +1,18 @@
+body {
+    background-color: rgb(0, 0, 0);
+}
+
+#search-container{
+    padding: 2rem;
+}
+
+#card-row{
+    width:80%
+}
+
+.hstack {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    align-self: stretch;
+}
