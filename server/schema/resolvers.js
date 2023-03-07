@@ -1,23 +1,13 @@
 const { AuthenticationError } = require('apollo-server-express');
 const { User } = require('../models');
 const { signToken } = require('../utils/auth');
-const fetch = require('node-fetch');
-const API_URL = 'https://api.rawg.io/api';
+
 const resolvers = {
     Query: {
-        // searchGame: async (_, { name }) => {
-        //     const url = `https://api.rawg.io/api/games?search=${encodeURIComponent(name)}`;
-        //     const response = await fetch(url);
-        //     const data = await response.json();
-        //     const game = data.results[0];
-        //     return {
-        //       name: game.name,
-        //       background_image: game.background_image
-        //     };
-        //  },
+       
         me: async (_, __, context) => {
             if (context.user) {
-                return User.findOne({ _id: context.user._id }).populate('savedBooks');
+                return User.findOne({ _id: context.user._id }).populate('myGames');
             }
             throw new AuthenticationError('You need to be logged in!');
         },
@@ -47,7 +37,38 @@ const resolvers = {
                 console.error(err);
                 throw new Error('Error creating user');
       }
-    }
+    },
+        saveGame: async (_, {game}, context) => {
+            if(context.user) {
+            const updatedUser = User.findOneAndUpdate(
+                {_id: context.user._id},
+                {$addToSet: {myGames:game}},
+                {
+                    new: true,
+                    runValidators: true,
+                },
+            );
+
+            return updatedUser;
+        }
+        throw new AuthenticationError('you need to be logged in.');
+    },
+    
+        deleteGame: async (_, {game_id}, context) => {
+            if(context.user) {
+                const updatedUser = User.findOneAndUpdate(
+                    {_id: context.user._id},
+                    {$pull: {myGames: {game_id}}},
+                    {
+                        new: true,
+                        runValidators: true,
+                    },
+                );
+
+                return updatedUser;
+            }
+            throw new AuthenticationError('you need to be logged in.');
+    },
   }
 };
 
