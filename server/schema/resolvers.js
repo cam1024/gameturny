@@ -38,7 +38,7 @@ const resolvers = {
                 throw new Error('Error creating user');
       }
     },
-        saveGame: async (_, {game}, context) => {
+        addGame: async (_, {game}, context) => {
             if(context.user) {
             const updatedUser = User.findOneAndUpdate(
                 {_id: context.user._id},
