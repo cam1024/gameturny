@@ -14,12 +14,12 @@ const resolvers = {
     },
     Mutation: {
         login: async (_, {email, password}) => {
-            const user = await User.findOne(email);
+            const user = await User.findOne({email});
             if (!user) {
                 throw new AuthenticationError('no user with this email found');
             }
 
-            const passwordMatch = await user.checkPassword(password);
+            const passwordMatch = await user.isCorrectPassword(password);
             if (!passwordMatch) {
                 throw new AuthenticationError('Password is incorrect.')
             }
