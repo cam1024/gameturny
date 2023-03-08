@@ -55,17 +55,17 @@ const Home = () => {
     if (!searchInput) {
       return false;
     }
-
-    try {
+    console.log(searchInput)
+    // try {
       const response = await searchGame(searchInput);
-
+      console.log(response)
       if (!response.ok) {
         throw new Error('something went wrong!');
       }
 
-      const { items } = await response.json();
-
-      const gameData = items.map((game) => ({
+      const  {results}  = await response.json();
+      console.log(results)
+      const gameData = results.map((game) => ({
         game_id: game.game_id,
         name: game.name,
         description: game.description,
@@ -75,9 +75,9 @@ const Home = () => {
 
       setSearchedGames(gameData);
       setSearchInput('');
-    } catch (err) {
-      console.error(err);
-    }
+    // } catch (err) {
+    //   console.error(err);
+    // }
   };
 
 
@@ -140,8 +140,8 @@ const Home = () => {
               return (
                 <Col >
                   <Card key={game.game_id} id='game-card' className="bg-dark text-white">
-                    {game.background_image ? (
-                      <Card.Img src={game.background_image} alt={`artwork for ${game.name}`} />
+                    {game.image ? (
+                      <Card.Img src={game.image} alt={`artwork for ${game.name}`} />
                     ) : null}
                     <Card.ImgOverlay>
                       <Card.Title>{game.name}</Card.Title>
@@ -167,9 +167,9 @@ const Home = () => {
               <Card bg='dark' text='white'>
                 <CardHeader as='h5'>Must Play List:</CardHeader>
                 <ListGroup>
-                  {Array.from({ length: 4 }).map((_, __) => (
-                    <ListGroupItem action variant='info'>gameslist</ListGroupItem>
-                  ))}
+                  {/* {Array.from({ length: 4 }).map((_, __) => ( */}
+                    <ListGroupItem  action variant='info'>gameslist</ListGroupItem>
+                  {/* ))} */}
                 </ListGroup>
               </Card>
             </Col>
