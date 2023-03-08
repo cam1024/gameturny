@@ -28,9 +28,9 @@ const resolvers = {
 
             return {token, user};
         },
-        addUser: async (_, {username, email, password}) => {
+        addUser: async (_, {name, email, password}) => {
             try {
-                const user = User.create({username, email, password});
+                const user = User.create({name, email, password});
                 const token = signToken(user);
                 return { token, user };
              }  catch (err) {
