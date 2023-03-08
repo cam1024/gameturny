@@ -70,7 +70,7 @@ const Home = () => {
         name: game.name,
         description: game.description,
         image: game.background_image || '',
-        genre: game.genre,
+        genre: game.genres.map(g => `${g.name} | `),
       }));
 
       setSearchedGames(gameData);
@@ -145,7 +145,7 @@ const Home = () => {
                     ) : null}
                     <Card.ImgOverlay>
                       <Card.Title>{game.name}</Card.Title>
-                      <Card.Text>{game.description}</Card.Text>
+                      <Card.Text>{game.genre}</Card.Text>
                       {Auth.loggedIn() && (
                         <Button
                           disabled={savedGameIds?.some((savedGameId) => savedGameId === game.game_id)}
