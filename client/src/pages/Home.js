@@ -66,11 +66,9 @@ const Home = () => {
       const  {results}  = await response.json();
       console.log(results)
       const gameData = results.map((game) => ({
-        game_id: game.game_id,
+        id: game.id,
         name: game.name,
-        description: game.description,
         image: game.background_image || '',
-        genre: game.genres.map(g => `${g.name} | `),
       }));
 
       setSearchedGames(gameData);
@@ -82,9 +80,9 @@ const Home = () => {
 
 
   // create function to handle saving a game to our database
-  const handleAddGame = async (game_id) => {
+  const handleAddGame = async (id) => {
     // find the game in `searchedgames` state by the matching id
-    const gameToSave = searchedGames.find((game) => game.game_id === game_id);
+    const gameToSave = searchedGames.find((game) => game.id === id);
 
     // get token
     const token = Auth.loggedIn() ? Auth.getToken() : null;
@@ -95,15 +93,11 @@ const Home = () => {
 
     try {
       const { data } = await saveThisGame({
-        variables: { game: gameToSave }
+        variables: { gameData: {...gameToSave} }
       })
 
-      if (!data) {
-        throw new Error('something went wrong!');
-      }
-
       // if game successfully saves to user's account, save game id to state
-      setSavedGameIds([...savedGameIds, gameToSave.game_id]);
+      setSavedGameIds([...savedGameIds, gameToSave.id]);
     } catch (err) {
       console.error(err);
     }
@@ -139,7 +133,7 @@ const Home = () => {
             {searchedGames.map((game) => {
               return (
                 <Col >
-                  <Card key={game.game_id} id='game-card' className="bg-dark text-white">
+                  <Card key={game.id} id='game-card' className="bg-dark text-white">
                     {game.image ? (
                       <Card.Img src={game.image} alt={`artwork for ${game.name}`} />
                     ) : null}
@@ -148,10 +142,10 @@ const Home = () => {
                       <Card.Text>{game.genre}</Card.Text>
                       {Auth.loggedIn() && (
                         <Button
-                          disabled={savedGameIds?.some((savedGameId) => savedGameId === game.game_id)}
-                          onClick={() => handleAddGame(game.game_id)}
+                          disabled={savedGameIds?.some((savedGameId) => savedGameId === game.id)}
+                          onClick={() => handleAddGame(game.id)}
                           variant='info'>
-                          {savedGameIds?.some((savedGameId) => savedGameId === game.game_id)
+                          {savedGameIds?.some((savedGameId) => savedGameId === game.id)
                             ? 'this game has been added'
                             : 'add game to play list'}
                         </Button>

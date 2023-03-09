@@ -25,34 +25,30 @@ export const ADD_USER = gql`
 `;
 
 export const ADD_GAME = gql`
-mutation addGame($Game:GameSearch!) {
-    addGame(Game: $Game){
+mutation addGame($gameData:GameSearch!) {
+    addGame(gameData: $gameData){
         _id
         name
         email
         myGames {
-            game_id
+            id
             name
-            background_image
-            description
-            genre
+            image
         }
     }
 }
 `;
 
-export const DELETE_GAME =gql`
-mutation deleteGame($game_id: ID!) {
-    deleteGame(game_id: $game_id) {
+export const DELETE_GAME = gql`
+mutation deleteGame($id: ID!) {
+    deleteGame(id: $id) {
         _id
         name
         email
         myGames {
-            game_id
+            id
             name
-            background_image
-            description
-            genre
+            image
         }
     }
 }

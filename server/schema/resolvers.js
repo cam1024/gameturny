@@ -38,11 +38,11 @@ const resolvers = {
                 throw new Error('Error creating user');
       }
     },
-        addGame: async (_, {game}, context) => {
+        addGame: async (_, {gameData}, context) => {
             if(context.user) {
             const updatedUser = User.findOneAndUpdate(
                 {_id: context.user._id},
-                {$addToSet: {myGames:game}},
+                {$push: {myGames:gameData}},
                 {
                     new: true,
                     runValidators: true,
