@@ -18,7 +18,7 @@
 
 ## Usage
   In order to use this app go to 
-  (url)
+  (https://gameturny.herokuapp.com)
 
 ## INSTALLATION OF THE REPO FROM GITHUB
   ***
