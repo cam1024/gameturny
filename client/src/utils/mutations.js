@@ -30,7 +30,7 @@ mutation addGame($gameData:GameSearch!) {
         _id
         name
         email
-        myGames {
+        saved_games {
             id
             name
             image
@@ -45,7 +45,7 @@ mutation deleteGame($id: ID!) {
         _id
         name
         email
-        myGames {
+        saved_games {
             id
             name
             image

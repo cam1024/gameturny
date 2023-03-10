@@ -33,11 +33,11 @@ const Home = () => {
   const [savedGameIds, setSavedGameIds] = useState(getSavedGameIds());
 
   const [saveThisGame] = useMutation(ADD_GAME, {
-    update(cache, { data: { myGames } }) {
+    update(cache, { data: { saved_games } }) {
       try {
         cache.writeQuery({
           query: QUERY_ME,
-          data: { me: myGames },
+          data: { saved_games },
         });
       } catch (e) {
         console.error(e);
@@ -161,7 +161,7 @@ const Home = () => {
               <Card bg='dark' text='white'>
                 <CardHeader as='h5'>Must Play List:</CardHeader>
                 <ListGroup>
-                  {/* {Array.from({ length: 4 }).map((_, __) => ( */}
+                  {/* {User.map(saved_games)} */}
                     <ListGroupItem  action variant='info'>gameslist</ListGroupItem>
                   {/* ))} */}
                 </ListGroup>

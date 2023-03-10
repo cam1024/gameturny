@@ -10,7 +10,6 @@ query me{
             id
             name
             background_image
-            genres
         }
     }
 }
