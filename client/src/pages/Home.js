@@ -32,18 +32,7 @@ const Home = () => {
   // create state to hold saved GameId values
   const [savedGameIds, setSavedGameIds] = useState(getSavedGameIds());
 
-  const [saveThisGame] = useMutation(ADD_GAME, {
-    update(cache, { data: { saved_games } }) {
-      try {
-        cache.writeQuery({
-          query: QUERY_ME,
-          data: { saved_games },
-        });
-      } catch (e) {
-        console.error(e);
-      }
-    },
-  });
+  const [saveThisGame] = useMutation(ADD_GAME);
 
   useEffect(() => {
     return () => saveGameIds(savedGameIds);
