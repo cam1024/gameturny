@@ -7,11 +7,9 @@ query me{
         name
         email
         myGames {
-            game_id
+            id
             name
             background_image
-            description
-            genre
         }
     }
 }

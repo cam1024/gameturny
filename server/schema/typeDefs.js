@@ -2,15 +2,14 @@ const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
     type Query {
-        me:User
+       me: User
   }
 
     type Game {
-        game_id: ID!
+        id: ID!
         name: String!
-        background_image: String
-        description: String
-        genre:String
+        image: String
+       
   }
 
     type User {
@@ -18,7 +17,7 @@ const typeDefs = gql`
         name: String!
         email: String!
         password: String
-        myGames: [Game]!
+        saved_games: [Game]
   }
 
     type Auth {
@@ -27,17 +26,17 @@ const typeDefs = gql`
   }
 
     input GameSearch{
-      game_id: ID!
+      id: ID!
       name: String!
-      background_image: String
-      description: String
+      image: String
+    
     }
 
     type Mutation {
         login(email: String!, password: String!): Auth!
         addUser(name: String!, email: String!, password: String!): Auth!
-        addGame(Game:GameSearch!): User
-        deleteGame(game_id: ID!): User
+        addGame(gameData:GameSearch!): User
+        deleteGame(id: ID!): User
   }
 `;
 
